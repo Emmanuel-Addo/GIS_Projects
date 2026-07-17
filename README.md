@@ -4,7 +4,7 @@ Welcome to the **GIS & Geospatial Projects** repository! This project showcases 
 
 ---
 
-## 🗺️ Repository Structure & Components
+## Repository Structure & Components
 
 This repository is divided into two primary areas: **Desktop GIS / Spatial Analysis** and **WebGIS / Interactive Map Prototypes**.
 
@@ -32,7 +32,7 @@ Interactive web-based geospatial visualizations designed with standard web techn
 
 ---
 
-## 🛠️ Technologies & Tools Used
+## Technologies & Tools Used
 
 *   **GIS Softwares**: Esri ArcGIS Desktop (ArcMap/ArcCatalog), Spatial Statistics tools, Mapping and Visualization toolset.
 *   **Formats**: Shapefiles (`.shp`, `.dbf`, `.shx`, `.prj`), Map Documents (`.mxd`), Geodatabases (`.gdb`).
@@ -40,7 +40,7 @@ Interactive web-based geospatial visualizations designed with standard web techn
 
 ---
 
-## 🚀 How to Explore the Projects
+## How to Explore the Projects
 
 ### Desktop GIS
 1. Ensure you have **Esri ArcGIS Desktop** (ArcMap) installed.
