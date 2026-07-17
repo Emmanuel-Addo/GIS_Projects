@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- =============== BASIC PAGE SETUP (HTML HEAD) =============== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoVision GIS Consult</title>
+   <style>
+        * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* --------- ROOT VARIABLES (colors) --------- */
+    :root {
+      --primary: #0c7c59;
+      --primary-dark: #05513a;
+      --accent: #ffb703;
+      --bg: #f4f7fb;
+      --bg-dark: #121826;
+      --text: #222;
+      --text-light: #f3f3f3;
+      --card-bg: #ffffff;
+      --border-soft: #e0e0e0;
+    }
+
+    /* Dark theme variables (we'll toggle a class on <body>) */
+    body.dark {
+      --bg: var(--bg-dark);
+      --text: var(--text-light);
+      --card-bg: #1b2332;
+      --border-soft: #222b3a;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* --------- LAYOUT HELPERS --------- */
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* --------- HEADER + NAVIGATION --------- */
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-soft);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--primary-dark);
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #4cc9f0, #023047);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      transition: transform 0.1s ease, box-shadow 0.1s ease,
+        background-color 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      color: var(--text);
+    }
+ --------- HERO SECTION --------- */
+     .hero {
+      padding: 3rem 0 2.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.8fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background-color: rgba(12, 124, 89, 0.1);
+      color: var(--primary-dark);
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+    }
+
+    .hero-text {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    body.dark .hero-text {
+      color: #d1d5db;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-badge {
+      border-radius: 999px;
+      background-color: rgba(0, 0, 0, 0.04);
+      padding: 0.2rem 0.6rem;
+      font-size: 0.78rem;
+    }
+
+    body.dark .hero-badge {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    body.dark .hero-note {
+      color: #9ca3af;
+    }
+
+    .hero-card {
+      background-color: var(--card-bg);
+      border-radius: 1.25rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.25rem;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.15);
+    }
+
+    .hero-card-title {
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.95rem;
+    }
+
+    .hero-map-placeholder {
+      border-radius: 0.75rem;
+      border: 1px dashed var(--border-soft);
+      padding: 0.9rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.7rem;
+      background: linear-gradient(
+        135deg,
+        rgba(148, 210, 189, 0.3),
+        rgba(94, 129, 172, 0.2)
+      );
+    }
+
+    .hero-map-placeholder strong {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-stat span {
+      display: block;
+      font-weight: 600;
+    }
+
+    /* --------- SECTIONS --------- */
+    section {
+      padding: 2.5rem 0;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.section-intro {
+      margin-bottom: 1.5rem;
+      color: #555;
+      max-width: 700px;
+    }
+
+    body.dark section p.section-intro {
+      color: #d1d5db;
+    }
+
+    /* --------- SERVICES GRID --------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.1rem;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .pill {
+      display: inline-block;
+      background-color: rgba(12, 124, 89, 0.08);
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* --------- PROJECTS + JS INTERACTION --------- */
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .projects-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .project-item {
+      background-color: var(--card-bg);
+      border-radius: 0.9rem;
+      border: 1px solid var(--border-soft);
+      padding: 0.8rem 0.9rem;
+    }
+
+    .project-item span {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #888;
+      margin-bottom: 0.2rem;
+    }
+
+    body.dark .project-item span {
+      color: #9ca3af;
+    }
+
+    /* --------- CONTACT (FORM) --------- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2rem;
+    }
+
+    form {
+      background-color: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.25rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+      font-size: 0.9rem;
+    }
+
+    .form-row {
+      margin-bottom: 0.8rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.4rem;
+      border: 1px solid var(--border-soft);
+      font: inherit;
+      resize: vertical;
+      background-color: transparent;
+      color: inherit;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    body.dark .form-hint {
+      color: #9ca3af;
+    }
+
+    .form-message {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      min-height: 1.2em;
+    }
+
+    .form-message.success {
+      color: #16a34a;
+    }
+
+    .form-message.error {
+      color: #dc2626;
+    }
+
+    .contact-info {
+      font-size: 0.9rem;
+    }
+
+    .contact-info div {
+      margin-bottom: 0.6rem;
+    }
+
+    /* --------- FOOTER --------- */
+    footer {
+      padding: 1.5rem 0 2rem;
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-soft);
+      margin-top: 1rem;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* --------- RESPONSIVE BREAKPOINTS --------- */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .projects-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav ul {
+        display: none; /* For beginners: simple hide on mobile */
+      }
+
+      .services-grid,
+      .projects-list {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 2rem;
+      }
+
+      .nav-actions {
+        gap: 0.4rem;
+      }
+    }
+   </style> 
+  </head>
+<body>
+  <!-- =============== HEADER + NAV =============== -->
+  <header>
+    <div class="container nav-bar">
+      <div class="logo">
+        <div class="logo-icon">GIS</div>
+        <div>
+          GeoVision GIS<br />
+          <small>Spatial Intelligence for Africa</small>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <!-- Explain anchor links and #id targets here -->
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- This button will toggle dark/light theme in JS -->
+        <button id="themeToggle" class="btn btn-ghost" type="button">
+          🌙 Dark
+        </button>
+        <button
+          class="btn btn-primary"
+          type="button"
+          onclick="scrollToContact()"
+        >
+          Get Quote
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- =============== HERO SECTION =============== -->
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-tag">GIS &amp; Geospatial Consulting</div>
+          <h1 class="hero-title">
+            We turn <span>location data</span> into better decisions.
+          </h1>
+          <p class="hero-text">
+            GeoVision GIS Consult helps utilities, health agencies, and city
+            planners map, analyze, and monitor what is happening on the ground.
+            From electricity networks to disease outbreaks, we use maps and
+            analytics to support smarter decisions.
+          </p>
+
+          <div class="hero-badges">
+            <div class="hero-badge">Electricity Network Mapping</div>
+            <div class="hero-badge">Health &amp; Disease Modelling</div>
+            <div class="hero-badge">Urban Planning Support</div>
+          </div>
+
+          <div class="hero-actions">
+            <button
+              class="btn btn-primary"
+              type="button"
+              onclick="scrollToContact()"
+            >
+              Request a GIS Project
+            </button>
+            <button class="btn btn-ghost" type="button" onclick="showAlert()">
+              What is GIS?
+            </button>
+          </div>
+          <p class="hero-note">
+            Tip for students: inspect this section in DevTools to see how HTML,
+            CSS, and JS work together.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <div class="hero-card-title">
+            <span>Service Area Snapshot</span>
+            <small>Accra, Ghana</small>
+          </div>
+          <div class="hero-map-placeholder">
+            <strong>Interactive Map Placeholder</strong>
+            <span
+              >Here we would embed a real web map (e.g., Leaflet, Mapbox, or an
+              ArcGIS Web Map).</span
+            >
+            <span
+              >For this intro class, we'll focus on HTML, CSS and basic
+              JavaScript. The map will come later!</span
+            >
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span id="statCustomers">12,450</span>
+              Customers mapped
+            </div>
+            <div class="hero-stat">
+              <span>48</span>
+              Substations
+            </div>
+            <div class="hero-stat">
+              <span>99.3%</span>
+              Geo-coded
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <!-- =============== SERVICES SECTION =============== -->
+    <section id="services">
+      <div class="container">
+        <h2>Our Core GIS Services</h2>
+        <p class="section-intro">
+          We support organizations that need location-based intelligence.
+          Whether you are trying to trace electricity losses, monitor disease
+          hotspots, or plan resilient cities, our team designs practical GIS
+          solutions using open-source and enterprise tools.
+        </p>
+
+        <div class="services-grid">
+          <article class="card">
+            <div class="pill">Utilities</div>
+            <h3>Electricity Network Mapping</h3>
+            <p>
+              We map primary and secondary substations, feeders, and customer
+              meters to help utilities understand technical and commercial
+              losses, plan maintenance, and improve reliability.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="pill">Health</div>
+            <h3>Health &amp; Disease Surveillance</h3>
+            <p>
+              Using GIS with R and AI, we help public health teams visualize
+              outbreaks, identify hotspots, and plan rapid responses to protect
+              communities.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="pill">Cities</div>
+            <h3>Urban Planning &amp; SDG Dashboards</h3>
+            <p>
+              We support city authorities to visualize land use, services, and
+              infrastructure, and to track SDG indicators in intuitive web
+              dashboards.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== PROJECTS SECTION (JS INTERACTION) =============== -->
+    <section id="projects">
+      <div class="container">
+        <div class="projects-header">
+          <div>
+            <h2>Recent Projects</h2>
+            <p class="section-intro">
+              Below is a sample list of projects loaded using JavaScript. In
+              class, we will look at how the code creates these cards
+              dynamically.
+            </p>
+          </div>
+
+          <button id="addProjectBtn" class="btn btn-ghost" type="button">
+            + Add Demo Project
+          </button>
+        </div>
+
+        <div id="projectsList" class="projects-list">
+          <!-- JavaScript will inject project items here -->
+        </div>
+      </div>
+    </section>
+     <!-- =============== CONTACT SECTION (FORM + VALIDATION) =============== -->
+    <section id="contact">
+      <div class="container">
+        <h2>Request a GIS Project</h2>
+        <p class="section-intro">
+          Tell us a bit about your project and we will contact you with a simple
+          proposal. This form is a great example for teaching basic HTML forms,
+          CSS styling, and JavaScript validation.
+        </p>
+
+        <div class="form-grid">
+          <form id="quoteForm">
+            <div class="form-row">
+              <label for="name">Your Name</label>
+              <input id="name" name="name" type="text" placeholder="Jane Doe" />
+            </div>
+
+            <div class="form-row">
+              <label for="email">Email Address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+              />
+              <div class="form-hint">
+                We'll never share your email with anyone else.
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="projectType">Project Type</label>
+              <select id="projectType" name="projectType">
+                <option value="">Choose one...</option>
+                <option value="utility">Electricity Utility Mapping</option>
+                <option value="health">Health &amp; Disease Mapping</option>
+                <option value="urban">Urban Planning &amp; SDG</option>
+                <option value="other">Other GIS Project</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="message">Project Description</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Describe your GIS project, timelines, and goals..."
+              ></textarea>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              Submit Request
+            </button>
+
+            <div id="formMessage" class="form-message"></div>
+          </form>
+
+          <div class="contact-info">
+            <div>
+              <strong>Office</strong><br />
+              Accra, Ghana<br />
+              (Demo address for training purposes)
+            </div>
+            <div>
+              <strong>Email</strong><br />
+              contact@geovision-gis.com
+            </div>
+            <div>
+              <strong>Phone</strong><br />
+              +233 (0) 20 000 0000
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============== FOOTER =============== -->
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> GeoVision GIS Consult. All rights reserved.</div>
+      <div>
+        Built with <strong>HTML</strong>, <strong>CSS</strong>, and
+        <strong>JavaScript</strong> during an Intro to Web Development class.
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>
