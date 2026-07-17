@@ -13,12 +13,12 @@ This project uses Esri ArcGIS suite for spatial analysis and map publication. Ke
 *   **Map Documents (`.mxd`)**:
     *   `Bivarite_mapping.mxd`: Configuration and layout for bivariate mapping visualization.
     *   `angggggggggggggggg.mxd`: Large-scale spatial analysis layout.
-*   **Climate Spatial Analysis Data**:
-    *   `CENTRAL_FEATURE_CLIMATE_POINTS.*`: Identifies the central feature of climate observations.
-    *   `CLIMATE_DIRECTIONAL_DISTRIBUTION.*`: Defines the directional trend (Standard Deviational Ellipse) of climate factors.
-    *   `CLIMATE_MEAN_CENTER.*`: Measures the average coordinate of climate events.
-    *   `CLIMATE_MEDIAN_CENTER.*`: Measures the median center of climate events.
-    *   `CLIMATE_STANDARD_DISTANCE.*`: Represents standard distance dispersion.
+*   **Climate Spatial Analysis Data** (located in the [climate/](file:///c:/Users/use/Desktop/ADDO/climate) directory):
+    *   `climate/CENTRAL_FEATURE_CLIMATE_POINTS.*`: Identifies the central feature of climate observations.
+    *   `climate/CLIMATE_DIRECTIONAL_DISTRIBUTION.*`: Defines the directional trend (Standard Deviational Ellipse) of climate factors.
+    *   `climate/CLIMATE_MEAN_CENTER.*`: Measures the average coordinate of climate events.
+    *   `climate/CLIMATE_MEDIAN_CENTER.*`: Measures the median center of climate events.
+    *   `climate/CLIMATE_STANDARD_DISTANCE.*`: Represents standard distance dispersion.
 *   **Geospatial Vector Datasets**:
     *   Various Shapefiles (`data.*`, `north.*`, `pp.*`) and subdirectory datasets (`HI/p2.*`) containing spatial geometries and attribute tables.
     *   `New File Geodatabase.gdb/`: Structured Esri File Geodatabase for spatial data storage.
